@@ -1,0 +1,18 @@
+h1 kickify
+
+input#city-search type="text" placeholder="city"
+
+input#artist-search type="text" placeholder="artist"
+
+#kickify
+
+#showsContainer
+
+#songsContainer
+
+script type="text/template" id="showTemplate"
+  a(href=="<%= venue.uri %>") <%= displayName %>
+  
+script type="text/template" id="songTemplate"
+  h6 <%= artists[0].name %>
+  a(href=="<%= href %>") <%= name %>

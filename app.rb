@@ -1,0 +1,44 @@
+require 'cuba'
+require 'cuba/render'
+require 'cuba/sass'
+require 'slim'
+require 'json'
+require 'dotenv'
+Dotenv.load
+
+require './lib/playlist.rb'
+require './lib/spotify.rb'
+
+Cuba.plugin Cuba::Render
+Cuba.plugin Cuba::Sass
+
+Cuba.use(
+  Rack::Static,
+  urls: %w(/js /stylesheets),
+  root: "./public"
+)
+
+Cuba.settings[:render][:template_engine] = "slim"
+Cuba.settings[:sass] = {
+  style: :compact,
+  template_location: "assets/stylesheets"
+}
+
+Cuba.define do
+
+  on get do
+
+    on root do
+      res.write view("index")
+    end
+
+    on 'shows' do
+      search = req[:search]
+      playlist = Playlist.new(search)
+      shows = playlist.shows
+      res.write shows.to_json
+    end
+
+  end
+
+end
