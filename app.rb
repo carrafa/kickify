@@ -7,7 +7,6 @@ require 'dotenv'
 Dotenv.load
 
 require './lib/playlist.rb'
-require './lib/spotify.rb'
 
 Cuba.plugin Cuba::Render
 Cuba.plugin Cuba::Sass

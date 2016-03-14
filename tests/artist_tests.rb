@@ -5,7 +5,7 @@ require "./app.rb"
 scope do
 
   setup do
-    @artist = Spotify.new("lassijasdkjfbkfjlksdaj")
+    @artist = Artist.new("lassijasdkjfbkfjlksdaj")
   end
 
   test "spotify should return empty track array if it can't find artist" do |artist|
@@ -19,7 +19,7 @@ end
 scope do
 
   setup do
-    @artist = Spotify.new("beatles")
+    @artist = Artist.new("beatles")
   end
 
   test "spotify should return 3 track uris on valid artist search" do |artist|
@@ -30,4 +30,4 @@ scope do
 
 end
 
-puts 'done with spotify tests'
+puts 'done with artist tests'

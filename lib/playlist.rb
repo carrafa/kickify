@@ -1,5 +1,5 @@
 require './lib/songkick.rb'
-require './lib/spotify.rb'
+require './lib/artist.rb'
 
 class Playlist
 
@@ -17,7 +17,7 @@ class Playlist
     song_array = []
     artists.each do |artist|
       artist = artist.gsub(/[\u0080-\u00ff]/, "")
-      song_array.push Spotify.new(artist).track_uris
+      song_array.push Artist.new(artist).track_uris
     end
     return song_array.flatten
   end

@@ -1,6 +1,6 @@
 require 'unirest'
 
-class Spotify
+class Artist
 
   attr_reader :search
   attr_accessor :artist_search_url, :artist_info, :artist_id, :top_tracks_search_url, :top_tracks, :track_uris
