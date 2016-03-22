@@ -40,6 +40,8 @@ function getShows(search){
       var showsCollection = new Kickify.Collections.Shows(shows);
       var showsView = new Kickify.Views.Shows({collection: showsCollection});
 
+      console.log(shows)
+
       $('#showsContainer').html(showsView.render().el);
     }
   });

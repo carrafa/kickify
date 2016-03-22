@@ -34,8 +34,8 @@ Cuba.define do
     on 'shows' do
       search = req[:search]
       playlist = Playlist.new(search)
-      shows = playlist.shows
-      res.write shows.to_json
+      songs = playlist.songs
+      res.write songs.to_json
     end
 
   end

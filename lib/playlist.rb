@@ -17,6 +17,7 @@ class Playlist
     song_array = []
     artists.each do |artist|
       artist = artist.gsub(/[\u0080-\u00ff]/, "")
+      puts artist
       song_array.push Artist.new(artist).track_uris
     end
     return song_array.flatten

@@ -8,7 +8,7 @@ scope do
     @artist = Artist.new("lassijasdkjfbkfjlksdaj")
   end
 
-  test "spotify should return empty track array if it can't find artist" do |artist|
+  test "artist should return empty track array if it can't find artist" do |artist|
 
     assert_equal artist.track_uris, []
 
@@ -22,7 +22,7 @@ scope do
     @artist = Artist.new("beatles")
   end
 
-  test "spotify should return 3 track uris on valid artist search" do |artist|
+  test "artist should return 3 track uris on valid artist search" do |artist|
 
     assert artist.track_uris.length == 3
 
