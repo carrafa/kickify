@@ -5,6 +5,52 @@ $(function(){
 
 });
 
+function getAccessToken(){
+  return window.location.hash.substr(14).replace(/&.+/, '');
+}
+function getUserId(callback){
+  var accessToken = getAccessToken();
+  $.ajax({
+    url: 'https://api.spotify.com/v1/me',
+    headers: {
+           'Authorization': 'Bearer ' + accessToken
+    },
+    success: function(response) {
+           callback(response.id);
+    }
+  });
+}
+
+function getPlaylists(user_id){
+  var accessToken = getAccessToken();
+
+  $.ajax({
+    url: 'https://api.spotify.com/v1/users/' + user_id + '/playlists',
+    headers: {
+           'Authorization': 'Bearer ' + accessToken
+    },
+    success: function(response) {
+            console.log(response);
+    }
+  });
+}
+
+function createPlaylist(user_id){
+  var accessToken = getAccessToken();
+  $.ajax({
+    method: 'post',
+    url: 'https://api.spotify.com/v1/users/' + user_id + '/playlists',
+    headers: {
+            'Authorization': 'Bearer ' + accessToken,
+            'Content-Type': 'application/json'
+    },
+    data: {name: 'kickify'},
+    success: function(response) {
+            console.log(response);
+    }
+  });
+}
+
 function setSearchHandler(){
   $('#city-search').on('keydown', function(e){
     if(e.keyCode === 13){

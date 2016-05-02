@@ -4,6 +4,7 @@ require 'cuba/sass'
 require 'slim'
 require 'json'
 require 'dotenv'
+require 'unirest'
 Dotenv.load
 
 require './lib/playlist.rb'
@@ -28,7 +29,7 @@ Cuba.define do
   on get do
 
     on root do
-      res.write view("index")
+      res.write view("welcome")
     end
 
     on 'shows' do
@@ -36,6 +37,21 @@ Cuba.define do
       playlist = Playlist.new(search)
       songs = playlist.songs
       res.write songs.to_json
+    end
+
+    on 'auth/spotify' do
+      client_id = ENV['spotify_client_id']
+      scopes = 'playlist-modify-public'
+      url = "https://accounts.spotify.com/authorize?client_id=#{client_id}&scope=#{scopes}&redirect_uri=http:%2F%2Flocalhost:9292%2Fcallback&response_type=code"
+      res.redirect url
+    end
+
+    on 'callback' do
+      code = req[:code]
+      url = "https://accounts.spotify.com/api/token"
+      response = Unirest.post url, parameters: { :grant_type => "authorization_code", :code => code, "redirect_uri" => "http://localhost:9292/callback", "client_id" => ENV['spotify_client_id'], "client_secret" => ENV['spotify_client_secret']}
+      puts response.body
+      res.write view("index")
     end
 
   end
