@@ -1,6 +1,7 @@
 require 'unirest'
 
 class Songkick
+
   API_KEY = ENV['songkick_api_key']
 
   attr_reader :search

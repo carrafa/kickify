@@ -43,6 +43,4 @@ class Artist
     return uri_array
   end
 
-
-
 end
