@@ -5,9 +5,6 @@ $(function(){
 
 });
 
-function getAccessToken(){
-  return window.location.hash.substr(14).replace(/&.+/, '');
-}
 function getUserId(callback){
   var accessToken = getAccessToken();
   $.ajax({
@@ -22,31 +19,32 @@ function getUserId(callback){
 }
 
 function getPlaylists(user_id){
-  var accessToken = getAccessToken();
-
   $.ajax({
-    url: 'https://api.spotify.com/v1/users/' + user_id + '/playlists',
-    headers: {
-           'Authorization': 'Bearer ' + accessToken
-    },
+    url: '/spotify/playlists/',
     success: function(response) {
             console.log(response);
     }
   });
 }
 
-function createPlaylist(user_id){
-  var accessToken = getAccessToken();
+function createPlaylist(name){
   $.ajax({
     method: 'post',
-    url: 'https://api.spotify.com/v1/users/' + user_id + '/playlists',
-    headers: {
-            'Authorization': 'Bearer ' + accessToken,
-            'Content-Type': 'application/json'
-    },
-    data: {name: 'kickify'},
+    url: '/spotify/playlist/create',
+    data: {name: name},
     success: function(response) {
             console.log(response);
+    }
+  });
+}
+
+function addTracks(id, tracks){
+  $.ajax({
+    method: 'post',
+    url: '/spotify/playlist/add_tracks',
+    data: {id: id, tracks: tracks},
+    success: function(response){
+      console.log(response);
     }
   });
 }
