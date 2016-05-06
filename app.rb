@@ -9,7 +9,7 @@ require 'unirest'
 Dotenv.load
 
 require './lib/playlist.rb'
-require './lib/spotify_api.rb'
+require './spotify_api.rb'
 
 Cuba.plugin Cuba::Render
 Cuba.plugin Cuba::Sass
@@ -26,19 +26,19 @@ Cuba.settings[:sass] = {
   template_location: "assets/stylesheets"
 }
 
-Cuba.use Rack::Session::Cookie, :secret => "__a_ver_long_string__"
+Cuba.use Rack::Session::Cookie, :secret => "__a_very_long_string__"
+
 Cuba.define do
+
+  on 'spotify' do
+    run SpotifyAPI
+  end
 
   on get do
 
     on root do
       res.write view("welcome")
     end
-
-    on 'spotify' do
-      run SpotifyAPI
-    end
-
     on 'shows' do
       search = req[:search]
       playlist = Playlist.new(search)
@@ -53,13 +53,14 @@ Cuba.define do
       url = "https://accounts.spotify.com/authorize?client_id=#{client_id}&scope=#{scopes}&redirect_uri=#{redirect}&response_type=code"
       res.redirect url
     end
-
   
     on 'callback' do
       code = req[:code]
       url = "https://accounts.spotify.com/api/token"
       response = Unirest.post url, parameters: { :grant_type => "authorization_code", :code => code, "redirect_uri" => "http://localhost:9292/callback", "client_id" => ENV['spotify_client_id'], "client_secret" => ENV['spotify_client_secret']}
+      puts "response.body: #{response.body}"
       session[:access_token] = response.body['access_token']
+      session[:user_id] = Unirest.get('https://api.spotify.com/v1/me', headers: {"Authorization": "Bearer #{session[:access_token]}"}).body['id']
       res.write view("index")
     end
 
