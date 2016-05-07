@@ -2,8 +2,33 @@ console.log('kick it');
 
 $(function(){
   setSearchHandler();
-
 });
+
+function setCreatePlaylistHandler(songs){
+  $('#create-playlist').click(function(e){
+    e.preventDefault();
+    var testSongs = songs.slice(0, 99);
+    createPlaylist('some test playlist weeeee', function(id){
+      addTracks(id, testSongs);
+    });
+  });
+}
+
+function testPlaylistFunction(){
+  var songs = ["spotify:track:1OpFBWPdQCLRB8nopHBKKV",
+    "spotify:track:6XpoMBnB85QhDhZGfBBlGk",
+    "spotify:track:6bwtSNhG9epzg009Z51ZBH",
+    "spotify:track:3UPyOgHTlnGeP9i5V44TbN",
+    "spotify:track:4LitpYU9EPKY8AASdLmVWz",
+    "spotify:track:7EZCY0KExBJmL6FYyDBZDL",
+    "spotify:track:3ZzTDUe3NLWYNgfIMsFuzL",
+    "spotify:track:36hJ73nr0vFPk3ZBIGlrBJ",
+  "spotify:track:3jWS4SNsT0OYbMaLFNUY62"].join();
+  console.log("songs: ", songs);
+  createPlaylist('ramen dance party', function(id){
+    addTracks(id, songs);
+  });
+}
 
 function getUserId(callback){
   var accessToken = getAccessToken();
@@ -27,14 +52,17 @@ function getPlaylists(user_id){
   });
 }
 
-function createPlaylist(name){
+function createPlaylist(name, callback){
   $.ajax({
     method: 'post',
     url: '/spotify/playlist/create',
     data: {name: name},
     success: function(response) {
-            console.log(response);
+            var data = JSON.parse(response);
+            console.log("createPlaylist response: ", data);
+            callback(data.id);
     }
+
   });
 }
 
@@ -42,9 +70,9 @@ function addTracks(id, tracks){
   $.ajax({
     method: 'post',
     url: '/spotify/playlist/add_tracks',
-    data: {id: id, tracks: tracks},
+    data: {playlist_id: id, tracks: tracks},
     success: function(response){
-      console.log(response);
+      console.log('addTracks Response: ', response);
     }
   });
 }
@@ -80,12 +108,11 @@ function getShows(search){
     },
     success: function(response){
 
-      var shows = JSON.parse(response);
-      var showsCollection = new Kickify.Collections.Shows(shows);
+      var data = JSON.parse(response);
+      var showsCollection = new Kickify.Collections.Shows(data.shows);
       var showsView = new Kickify.Views.Shows({collection: showsCollection});
 
-      console.log(shows)
-
+      setCreatePlaylistHandler(data.songs);
       $('#showsContainer').html(showsView.render().el);
     }
   });
