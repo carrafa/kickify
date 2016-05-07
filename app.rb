@@ -27,6 +27,7 @@ Cuba.settings[:sass] = {
 }
 
 Cuba.use Rack::Session::Cookie, :secret => "__a_very_long_string__"
+Cuba.plugin Cuba::Safe
 
 Cuba.define do
 
@@ -42,8 +43,8 @@ Cuba.define do
     on 'shows' do
       search = req[:search]
       playlist = Playlist.new(search)
-      songs = playlist.songs
-      res.write songs.to_json
+      data = { :shows => playlist.shows, :songs => playlist.songs }
+      res.write data.to_json
     end
 
     on 'auth/spotify' do
@@ -58,10 +59,10 @@ Cuba.define do
       code = req[:code]
       url = "https://accounts.spotify.com/api/token"
       response = Unirest.post url, parameters: { :grant_type => "authorization_code", :code => code, "redirect_uri" => "http://localhost:9292/callback", "client_id" => ENV['spotify_client_id'], "client_secret" => ENV['spotify_client_secret']}
-      puts "response.body: #{response.body}"
       session[:access_token] = response.body['access_token']
-      session[:user_id] = Unirest.get('https://api.spotify.com/v1/me', headers: {"Authorization": "Bearer #{session[:access_token]}"}).body['id']
-      res.write view("index")
+      user_data =  Unirest.get('https://api.spotify.com/v1/me', headers: {"Authorization": "Bearer #{session[:access_token]}"}).body
+      session[:user_id] = user_data['id']
+      res.write view("index", :user_data => user_data)
     end
 
   end

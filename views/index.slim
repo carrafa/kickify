@@ -3,10 +3,18 @@ h1 kickify
 input#city-search type="text" placeholder="city"
 
 #kickify
+  a(href="#" id="create-playlist") create playlist
 
 #showsContainer
 
 #playlist
+
+a(href="/spotify/profile") profile
+
+.profile
+  img[src="#{user_data['images'][0]['url']}"]
+  .name
+    a(href="#{user_data['external_urls']['spotify']}") = user_data['display_name']
 
 script type="text/template" id="showTemplate"
   a(href=="<%= venue.uri %>") <%= displayName %>
