@@ -3,11 +3,12 @@ require './lib/artist.rb'
 
 class Playlist
 
-  attr_accessor :search, :shows, :artists, :songs, :all_uris
+  attr_accessor :search, :city, :shows, :artists, :songs, :all_uris
 
   def initialize (search)
     @search = search
     @songkick = Songkick.new(search)
+    @city = @songkick.city
     @shows = @songkick.get_shows 
     @artists = @songkick.get_artists
     @songs = get_songs
@@ -31,7 +32,7 @@ class Playlist
     artists.each_with_index do |artist, i|
       artist_name = artist[:name].gsub(/[\u0080-\u00ff]/, "")
       show_id = artist[:show_id]
-      puts "#{i/artists.length}% #{artist_name}"
+      puts "#{i}/#{artists.length} #{artist_name}"
       artist = Artist.new(artist_name, show_id)
       songs_array.push artist.top_tracks_details
     end

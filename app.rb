@@ -43,7 +43,7 @@ Cuba.define do
     on 'shows' do
       search = req[:search]
       playlist = Playlist.new(search)
-      data = { :shows => playlist.shows, :songs => playlist.songs }
+      data = { :city => playlist.city, :shows => playlist.shows, :songs => playlist.songs }
       res.write data.to_json
     end
 
