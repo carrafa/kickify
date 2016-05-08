@@ -1,7 +1,7 @@
 {
   "name": "kickify",
   "version": "1.0.0",
-  "description": "",
+  "description": "node tools for compiling react in kickify",
   "main": "webpack.config.js",
   "directories": {
     "test": "tests"
@@ -13,7 +13,7 @@
     "type": "git",
     "url": "git+https://github.com/carrafa/kickify.git"
   },
-  "author": "",
+  "author": "joshua carrafa",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/carrafa/kickify/issues"
