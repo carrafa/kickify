@@ -1,2 +1,2 @@
-body{background-color:ivory;color:#191970;font-family:futura;margin:0}ul{list-style:none;padding:0}
+body{background-color:ivory;color:#191970;font-family:futura;margin:60px 0 0 0}ul{list-style:none;padding:0}.header{height:60px;background-color:#080808;color:tomato;width:100%;display:inline-block;position:fixed;top:0}.header .header-panel{width:33%;display:inline-block;position:relative}.logo{text-align:center}.profile{text-align:right}.profile .avatar{position:relative;right:0;display:inline-block}.profile .avatar img{height:50px;display:inline-block;margin:5px}.profile .name{display:inline-block}.profile .name a{color:linen;text-decoration:none}
 /*# sourceMappingURL=main.css.map */

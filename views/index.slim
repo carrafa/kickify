@@ -1,5 +1,12 @@
-h1 kickify
-
+.header
+  .header-panel.city
+  .header-panel.logo kickify
+  .header-panel.profile
+    .name
+      a(href="#{user_data['external_urls']['spotify']}") = user_data['display_name']
+    .avatar
+      img[src="#{user_data['images'][0]['url']}"]
+      
 #searchContainer
 
 #kickify
@@ -8,12 +15,5 @@ h1 kickify
 #showsContainer
 
 #playlist
-
-a(href="/spotify/profile") profile
-
-.profile
-  img[src="#{user_data['images'][0]['url']}"]
-  .name
-    a(href="#{user_data['external_urls']['spotify']}") = user_data['display_name']
 
 script src="/js/app.js"
