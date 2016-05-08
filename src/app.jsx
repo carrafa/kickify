@@ -14,12 +14,6 @@ var Show = React.createClass({
   }
 });
 
-var Song = React.createClass({
-  render: function(){
-    return <iframe src="https://embed.spotify.com/?uri={this.props.uri}" width="300" height="80" frameborder="0" allowtransparency="true" />;
-  }
-});
-
 var ShowList = React.createClass({
   render: function(){
     var shows = [];
@@ -27,6 +21,22 @@ var ShowList = React.createClass({
       shows.push(<Show key={show.id} venue={show.venue.uri} name={show.displayName}/>);
     });
     return <ul>{shows}</ul>;
+  }
+});
+
+var Song = React.createClass({
+  render: function(){
+    return <li><iframe src={"https://embed.spotify.com/?uri=" + this.props.uri} width="300" height="80" frameborder="0" allowtransparency="true" /></li>;
+  }
+});
+
+var SongList = React.createClass({
+  render: function(){
+    var songs = [];
+    this.props.songs.forEach(function(song){
+      songs.push(<Song uri={song}/>);
+    });
+    return <ul>{songs}</ul>;
   }
 });
 
@@ -52,6 +62,10 @@ var SearchBox = React.createClass({
           ReactDOM.render(
             <ShowList shows={data.shows}/>,
             document.getElementById('showsContainer')
+          );
+          ReactDOM.render(
+            <SongList songs={data.songs}/>,
+            document.getElementById('songsContainer')
           );
           setCreatePlaylistHandler(data.songs);
         }
