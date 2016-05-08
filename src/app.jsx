@@ -31,13 +31,21 @@ var ShowList = React.createClass({
 });
 
 var SearchBox = React.createClass({
-  search: function(event){
-    if(event.keyCode === 13){
+  getInitialState: function(){
+    return {search: ''};
+  },
+  handleChange: function(e){
+    this.setState({ search: e.target.value });
+  },
+  onKeyDown: function(e){
+    if(e.keyCode === 13){
+      var search = this.state.search;
+      this.reset();
       $.ajax({
         method: 'get',
         url: '/shows',
         data: {
-          search : this.refs.citySearch.value
+          search : search
         },
         success: function(response){
           var data = JSON.parse(response);
@@ -50,8 +58,17 @@ var SearchBox = React.createClass({
       });
     }
   },
+  reset: function(){
+    this.setState({search: ''});
+  },
   render: function(){
-    return <input type="text" id="city-search" placeholder="city" onKeyDown={this.search} ref="citySearch"/>;
+    return <input type="text" 
+      id="city-search" 
+      placeholder="city" 
+      value={this.state.inputValue}
+      onChange={this.handleChange}
+      onKeyDown={this.onKeyDown} 
+      />;
   }
 });
 
