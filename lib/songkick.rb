@@ -44,7 +44,8 @@ class Songkick
     
     shows_results['resultsPage']['results']['event'].each do |show|
       show['performance'].each do |performance|
-        artists.push performance['artist']['displayName']
+        artist = { :show_id => performance['id'], :name => performance['artist']['displayName'] }
+        artists.push artist
       end
     end
 
