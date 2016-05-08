@@ -40,6 +40,12 @@ var SongList = React.createClass({
   }
 });
 
+var City = React.createClass({
+  render: function(){
+    return <div id="city">{this.props.city}</div>;
+  }
+});
+
 var SearchBox = React.createClass({
   getInitialState: function(){
     return {search: ''};
@@ -67,7 +73,10 @@ var SearchBox = React.createClass({
             <SongList songs={data.songs}/>,
             document.getElementById('songsContainer')
           );
-          setCreatePlaylistHandler(data.songs);
+          ReactDOM.render(
+            <City city={data.city.metroArea.displayName}/>,
+            document.getElementById('cityContainer')
+          );
         }
       });
     }
@@ -77,13 +86,13 @@ var SearchBox = React.createClass({
   },
   render: function(){
     return <input type="text" 
-      id="city-search" 
-      placeholder="city" 
-      value={this.state.inputValue}
-      onChange={this.handleChange}
-      onKeyDown={this.onKeyDown} 
-      />;
-  }
+             id="city-search" 
+             placeholder="city" 
+             value={this.state.inputValue}
+             onChange={this.handleChange}
+             onKeyDown={this.onKeyDown} 
+           />;
+            } 
 });
 
 // ---------- create playlist stuff, will move to react eventually -----------
