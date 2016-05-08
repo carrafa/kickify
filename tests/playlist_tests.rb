@@ -16,9 +16,14 @@ scope do
 
   test "playlist should return array of track uris" do |playlist|
 
+    puts playlist.all_uris
+    assert playlist.all_uris
+
+  end
+
+  test "playlist should return track details" do |playlist|
     puts playlist.songs
     assert playlist.songs
-
   end
 
 end

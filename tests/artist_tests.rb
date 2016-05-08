@@ -10,7 +10,7 @@ scope do
 
   test "artist should return empty track array if it can't find artist" do |artist|
 
-    assert_equal artist.track_uris, []
+    assert_equal artist.top_tracks_uris, []
 
   end
 
@@ -24,7 +24,14 @@ scope do
 
   test "artist should return 3 track uris on valid artist search" do |artist|
 
-    assert artist.track_uris.length == 3
+    assert artist.top_tracks_uris.length == 3
+
+  end
+
+  test "artist should return hash on Artist.top_tracks_details" do |artist|
+    
+    puts artist.top_tracks_details
+    assert artist.top_tracks_details.length == 3
 
   end
 
