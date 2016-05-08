@@ -1,3 +1,5 @@
 .env
 *.swp
 public/js/app.js
+*.map
+*.css
