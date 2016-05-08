@@ -33,8 +33,8 @@ var Song = React.createClass({
 var SongList = React.createClass({
   render: function(){
     var songs = [];
-    this.props.songs.forEach(function(song){
-      songs.push(<Song uri={song}/>);
+    this.props.songs.forEach(function(song, i){
+      songs.push(<Song key={i} artist={song.artist} showId={song.show_id} uri={song.uri}/>);
     });
     return <ul>{songs}</ul>;
   }
@@ -86,6 +86,7 @@ var SearchBox = React.createClass({
   }
 });
 
+// ---------- create playlist stuff, will move to react eventually -----------
 function setCreatePlaylistHandler(songs){
   $('#create-playlist').click(function(e){
     e.preventDefault();
