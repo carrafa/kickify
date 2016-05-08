@@ -1,6 +1,6 @@
 h1 kickify
 
-input#city-search type="text" placeholder="city"
+#searchContainer
 
 #kickify
   a(href="#" id="create-playlist") create playlist
@@ -16,8 +16,4 @@ a(href="/spotify/profile") profile
   .name
     a(href="#{user_data['external_urls']['spotify']}") = user_data['display_name']
 
-script type="text/template" id="showTemplate"
-  a(href=="<%= venue.uri %>") <%= displayName %>
-  
-script type="text/template" id="songTemplate"
-  iframe src=="https://embed.spotify.com/?uri=<%= uri %>" width="300" height="80" frameborder="0" allowtransparency="true"
+script src="/js/app.js"
