@@ -4,14 +4,22 @@ require "./app.rb"
 scope do
 
   setup do
-    @shows = Songkick.new("new+york")
+    @songkick = Songkick.new("new+york")
   end
 
-  test "should return list of artists" do |shows|
+  test "should return list of artists" do |songkick|
     
-    assert shows.get_artists
+    assert songkick.get_artists
 
   end
+
+  test "should return city name" do |songkick|
+    puts
+
+    puts songkick.city
+    assert songkick.city
+  end
+
 end
 
 puts "done with songkick tests"

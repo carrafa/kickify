@@ -32,7 +32,7 @@ SpotifyAPI.define do
 
       puts response.headers
       puts response.body
-      res.write response.body
+      res.write response.body.to_json
     end
 
     on 'playlist/add_tracks' do
