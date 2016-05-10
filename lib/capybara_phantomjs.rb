@@ -20,10 +20,13 @@ module GetPage
       rows = doc.css('.vevent')
 
       rows.each do |row|
-        puts row.css('.dtstart').text
-        puts row.css('.bands').text
-        puts row.css('.venue').text
+        date = row.css('.dtstart').text.gsub("\n", "").gsub(" ", "")
+        bands = row.css('.bands').text.gsub("\n", "").gsub(" ", "").gsub(",", ", ")
+        venue =  row.css('.venue').text.gsub("\n", "").gsub(" ", "")
 
+        single_show = { date: date , bands: bands, venue: venue }
+
+        puts single_show
       end
 
     end
