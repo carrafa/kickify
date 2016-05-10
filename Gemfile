@@ -7,4 +7,5 @@ source "https://rubygems.org"
  gem "unirest"
  gem "dotenv"
  gem "json"
- 
+ gem "capybara"
+ gem "poltergeist"
