@@ -3,3 +3,4 @@
 public/js/app.js
 *.map
 *.css
+.sass-cache
